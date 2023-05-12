@@ -67,7 +67,7 @@ body{
     bottom: 0;
     left: 0;
     background: #4e444442;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
 }
@@ -79,7 +79,21 @@ body{
     background: #000;
     border-radius: 20px;
     padding: 20px;
+    position: relative;
 }
 .modal .modal__content h1{
     margin: 0;
+}
+
+.modal .modal__content button.btn__close {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 20px;
+    border: none;
+    background: none;
+    color: white;
+    font-family: cursive;
+    padding: 10px;
+    cursor: pointer;
 }

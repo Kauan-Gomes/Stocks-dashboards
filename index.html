@@ -15,17 +15,23 @@
         <div class="wrapper">
             <img src="img/logo.svg" alt="logo stock dashboards">
             <h1>Stocks <span>Dashboard</span></h1>
-            <button>+</button>
+            <button onclick="openModal('#add-stock')">+</button>
         </div>
         
      </header>
-     <div class="modal">
+     <div class="modal" id="add-stock" >
         <div class="modal__content">
             <h1>Add Stock</h1>
+            <button class="btn__close" onclick="closeModal(null, '#add-stock')">x</button>
+            <form onsubmit="handleAddTicker(event)">
+                <label for="ticker">Ticker</label>
+                <input type="text" name="ticker" id="ticker"/>
+                <input type="submit" value="Add Ticker"/>
+            </form>
+
         </div>
      </div>
-
-
+     <script src="js/main.js"></script>
 </body>
 
 </html>
