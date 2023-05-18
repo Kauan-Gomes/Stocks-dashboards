@@ -17,10 +17,6 @@ const closeModal = (event, idModal) => { //função para fechar o modal pelo  o 
     }
 }
 
-const modal = document.querySelector(".modal")
-modal.addEventListener("click", handleModal) // adicionando uma ação com addEventListener
-
-
 const handleAddTicker = async (event) => {
     event.preventDefault() // impede q o form seja enviado
     const ticker = event.target.ticker.value
@@ -31,19 +27,35 @@ const handleAddTicker = async (event) => {
         console.log(data)
 
         const price = data["Global Quote"]["05. price"] //pegando o preço da cotação 
+        const previusClosePrice = data["Global Quote"]["08. previous close"]
+        let priceChange = ''
+        let symbol = ''
 
-        if (price) {
-            const newTicker = 
-            `<div class="ticker">
+        if (price && previusClosePrice) {
+            const priceFomated = parseFloat(price).toFixed(2)
+            const previusClosePriceFormated = parseFloat(previusClosePrice).toFixed(2)
+
+            if (priceFomated !== previusClosePriceFormated) {
+                if (priceFomated > previusClosePriceFormated) {
+                    priceChange = 'increase'
+                    symbol = '⬆'
+                } else {
+                    priceChange = 'decrease'
+                    symbol = '⬇'
+                }
+            }
+
+            const newTicker =
+                `<div class="ticker">
                 <h2>${ticker}</h2>
-                <p>${price}</p>
+                <p class="${priceChange}">${symbol}U$${priceFomated}</p>
             </div>`
 
-       const tickerList = document.querySelector("#ticker__list")
+            const tickerList = document.querySelector("#ticker__list")
 
-       tickerList.innerHTML += newTicker //adicionando no HTML a nova DIV criada 
+            tickerList.innerHTML = newTicker + tickerList.innerHTML//adicionando no HTML a nova DIV criada 
 
-       closeModal('#add-stock')
+            closeModal('#add-stock')
         } else {
             alert(`Ticker ${ticker} não encontrado!`)
         }
@@ -52,3 +64,26 @@ const handleAddTicker = async (event) => {
         alert(error)
     }
 }
+
+const handleTickerMouseEnter = (event) => {
+    const ticker = event.target
+    const btnClose = ticker.querySelector(".btn__close")
+    btnClose.style.display = "block"
+}
+
+const handleTickerMouseLeave = (event) => {
+    const ticker = event.target
+    const btnClose = ticker.querySelector(".btn__close")
+    btnClose.style.display = "none"
+}
+
+const modal = document.querySelector(".modal")
+modal.addEventListener("click", handleModal) // adicionando uma ação com addEventListener
+
+
+const tickers = document.querySelectorAll(".ticker")
+
+tickers.forEach((ticker) => {
+    ticker.addEventListener("mouseenter", handleTickerMouseEnter)
+    ticker.addEventListener("mouseleave", handleTickerMouseLeave)
+})

@@ -85,7 +85,7 @@ body{
     margin: 0;
 }
 
-.modal .modal__content button.btn__close {
+.modal .modal__content button.btn__close, #ticker__list .ticker button.btn__close{
     position: absolute;
     top: 0px;
     right: 10px;
@@ -113,5 +113,20 @@ body{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    position: relative;
     
+}
+
+.ticker p.increase{
+    color: rgb(8, 66, 8);
+}
+
+.ticker p.decrease{
+    color: rgb(255, 4, 4);
+}
+
+#ticker__list .ticker button.btn__close {
+    line-height: 14px;
+    right: 5px;
+   
 }
