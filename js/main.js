@@ -47,14 +47,15 @@ const handleAddTicker = async (event) => {
 
             const newTicker =
                 `<div class="ticker">
-                <h2>${ticker}</h2>
-                <p class="${priceChange}">${symbol}U$${priceFomated}</p>
-            </div>`
+                    <button class="btn__close" onclick="removeTicker(event)">x</button>
+                    <h2>${ticker}</h2>
+                    <p class="${priceChange}">${symbol}US $${priceFomated}</p>
+                </div>`
 
             const tickerList = document.querySelector("#ticker__list")
 
             tickerList.innerHTML = newTicker + tickerList.innerHTML//adicionando no HTML a nova DIV criada 
-
+            addTickerCloseEvent()
             closeModal('#add-stock')
         } else {
             alert(`Ticker ${ticker} não encontrado!`)
@@ -65,13 +66,13 @@ const handleAddTicker = async (event) => {
     }
 }
 
-const handleTickerMouseEnter = (event) => {
+const handleTickerMouseEnter = (event) => { // função para identificar se o mouse esta dentro da div e aparecer o "X"
     const ticker = event.target
     const btnClose = ticker.querySelector(".btn__close")
     btnClose.style.display = "block"
 }
 
-const handleTickerMouseLeave = (event) => {
+const handleTickerMouseLeave = (event) => { //função para identificar se o mouse esta fora da div e desaparecer o "X"
     const ticker = event.target
     const btnClose = ticker.querySelector(".btn__close")
     btnClose.style.display = "none"
@@ -81,9 +82,18 @@ const modal = document.querySelector(".modal")
 modal.addEventListener("click", handleModal) // adicionando uma ação com addEventListener
 
 
-const tickers = document.querySelectorAll(".ticker")
+const addTickerCloseEvent = () => {
+    const tickers = document.querySelectorAll(".ticker")
+    tickers.forEach((ticker) => {
+        ticker.addEventListener("mouseenter", handleTickerMouseEnter)
+        ticker.addEventListener("mouseleave", handleTickerMouseLeave)
+    })
+}
 
-tickers.forEach((ticker) => {
-    ticker.addEventListener("mouseenter", handleTickerMouseEnter)
-    ticker.addEventListener("mouseleave", handleTickerMouseLeave)
-})
+const removeTicker = (event) =>{ //remover div das empresas 
+    const btnClose = event.target
+    const ticker = btnClose.closest('.ticker') // Função closest() faz uma busca pelos elementos que estão acima do parametro, no caso o botao(btnClose) que estão nos .ticker
+    ticker.remove()
+}
+
+addTickerCloseEvent()

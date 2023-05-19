@@ -118,7 +118,7 @@ body{
 }
 
 .ticker p.increase{
-    color: rgb(8, 66, 8);
+    color: rgb(12, 153, 12);
 }
 
 .ticker p.decrease{
@@ -128,5 +128,6 @@ body{
 #ticker__list .ticker button.btn__close {
     line-height: 14px;
     right: 5px;
+    display: none;
    
 }
