@@ -1,3 +1,5 @@
+var ListaDeTickers = []
+
 const openModal = (idModal) => { // função para abrir o modal
     const divModal = document.querySelector(idModal)
     divModal.style.display = "flex"
@@ -21,10 +23,17 @@ const handleAddTicker = async (event) => {
     event.preventDefault() // impede q o form seja enviado
     const ticker = event.target.ticker.value
     try {
-        console.log(event.target.ticker.value)
+
         const response = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${ticker}&apikey=1X2LY3U30H7E6ZKG`) //faz a requisição na api
         const data = await response.json() //transforma a resposta JSON em objeto
+        console.log(ticker)
         console.log(data)
+
+        ticker.toUpperCase()
+
+        ListaDeTickers.push(ticker)
+
+        console.log(ListaDeTickers)
 
         const price = data["Global Quote"]["05. price"] //pegando o preço da cotação 
         const previusClosePrice = data["Global Quote"]["08. previous close"]
@@ -64,6 +73,8 @@ const handleAddTicker = async (event) => {
     } catch (error) {
         alert(error)
     }
+
+    
 }
 
 const handleTickerMouseEnter = (event) => { // função para identificar se o mouse esta dentro da div e aparecer o "X"
