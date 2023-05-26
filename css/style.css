@@ -125,9 +125,17 @@ body{
     color: rgb(255, 4, 4);
 }
 
-#ticker__list .ticker button.btn__close {
+#ticker__list .ticker button.btn__close{
     line-height: 14px;
     right: 5px;
     display: none;
    
+}
+
+
+#ticker__list .ticker button.btn__close .btn__refresh{
+    right: 10px;
+    top: 5px;
+    display: none;
+    border: transparent;
 }
